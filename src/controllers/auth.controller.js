@@ -1,5 +1,5 @@
 import {User} from '../models/user.model.js';
-import {ApiError,ApiResponse,asyncHandler} from '../utils';
+import {ApiError,ApiResponse,asyncHandler} from '../utils/index.js';
 
 
 const register = asyncHandler(async(req, res)=> {
