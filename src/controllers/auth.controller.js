@@ -19,10 +19,44 @@ const register = asyncHandler(async(req, res)=> {
         password
      })
 
-     return res.json(new ApiResponse(201,user,'user register successfully'));
+     const registerUser = await User.findById(user._id).select('-password');
+
+     return res.status(201)
+     .json(new ApiResponse(201,{user:registerUser},'User register successfully'));
+})
+
+
+const login = asyncHandler(async(req, res)=> {
+   const {email,password} = req.body;
+   if(!email || !password) {
+      throw new ApiError(400,'Both fields are required');
+   }
+
+   const user = await User.findOne({email});
+   if(!user) {
+      throw new ApiError(400,'User does not exist');
+   }
+
+  
+   const isPasswordCurrect = await user.isPasswordCurrect(password);
+   if(!isPasswordCurrect) {
+      throw new ApiError(401,'Invalid Credential');
+   }
+
+   const loggedInUser = await User.findById(user._id).select('-password');
+
+   // generate token
+   const accessToken = await user.generateAccessToken();
+
+   return res.status(200)
+   .cookie('accessToken',accessToken,{httpOnly:true})
+   .json(new ApiResponse(200,{user:loggedInUser,accessToken},'User logged in successfully'));
+
+
 })
 
 
 export {
-    register
+    register,
+    login
 }
