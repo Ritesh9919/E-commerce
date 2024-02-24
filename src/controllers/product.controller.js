@@ -13,7 +13,9 @@ const addProduct = asyncHandler(async(req, res)=> {
         name,
         description,
         price,
-        category
+        inStock,
+        category,
+        owner:req.user._id
      })
 
      return res.status(201)
@@ -27,7 +29,7 @@ const getProductByCategoryId = asyncHandler(async(req, res)=> {
         throw new ApiError(400,'Invalid category id');
      }
 
-     const product = await Product.findOne({category:categoryId});
+     const product = await Product.find({category:categoryId});
      if(!product) {
         throw new ApiError(404,'Product does not exist');
      }
