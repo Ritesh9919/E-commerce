@@ -22,7 +22,7 @@ const orderSchema = new mongoose.Schema({
     type:mongoose.Schema.Types.ObjectId,
     ref:'User'
  },
- orderItem:[orderItemSchema],
+ orderItems:[orderItemSchema],
  address:{
     type:String,
     required:true
