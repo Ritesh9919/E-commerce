@@ -253,6 +253,7 @@
         "tags": ["Cart"],
         "summary": "Add product to cart",
         "description": "Add product to cart",
+        "security": [{ "JWT": {} }],
         "requestBody": {
           "content": {
             "application/json": {
@@ -292,6 +293,7 @@
         "tags": ["Cart"],
         "summary": "View cart",
         "description": "View cart",
+        "security": [{ "JWT": {} }],
 
         "responses": {
           "201": {
@@ -309,6 +311,7 @@
         "tags": ["Cart"],
         "summary": "Update quantity",
         "description": "Update quantity",
+        "security": [{ "JWT": {} }],
         "requestBody": {
           "content": {
             "application/json": {
@@ -346,6 +349,7 @@
         "tags": ["Cart"],
         "summary": "Delete item from the cart",
         "description": "Delete item from the cart",
+        "security": [{ "JWT": {} }],
         "requestBody": {
           "content": {
             "application/json": {
@@ -379,6 +383,7 @@
         "tags": ["Order"],
         "summary": "Place order with product from the cart",
         "description": "Place order with product from the cart",
+        "security": [{ "JWT": {} }],
         "requestBody": {
           "content": {
             "application/json": {
@@ -412,6 +417,7 @@
         "tags": ["Order"],
         "summary": "Get order history of user",
         "description": "Get order history of user",
+        "security": [{ "JWT": {} }],
 
         "responses": {
           "200": {
