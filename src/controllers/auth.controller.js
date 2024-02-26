@@ -10,7 +10,7 @@ const register = asyncHandler(async(req, res)=> {
 
      const isUserExist = await User.findOne({email});
      if(isUserExist) {
-        throw new ApiError(400, 'User already exist');
+        throw new ApiError(409, 'User already exist');
      }
 
      const user = await User.create({
@@ -34,7 +34,7 @@ const login = asyncHandler(async(req, res)=> {
 
    const user = await User.findOne({email});
    if(!user) {
-      throw new ApiError(400,'User does not exist');
+      throw new ApiError(404,'User does not exist');
    }
 
   

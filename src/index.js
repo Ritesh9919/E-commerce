@@ -3,6 +3,12 @@ dotenv.config()
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import {connectDB} from './db/index.js';
+import cors from 'cors';
+import swagger from 'swagger-ui-express';
+import apiDocs from '../swagger.json' assert {type:'json'}
+
+
+
 
 // routers
 import authRouter from './routes/user.route.js';
@@ -13,7 +19,12 @@ import orderRouter from './routes/order.route.js';
 
 const app = express();
 
+
+// define swagger documentation
+app.use('/api/docs', swagger.serve,swagger.setup(apiDocs));
+
 // common middlewares
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());

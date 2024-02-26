@@ -1,0 +1,460 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "E-commerce API",
+    "description": "API for E-commerce"
+  },
+  "server": [
+    {
+      "url": "http://localhost:8000"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "JWT": {
+        "in": "header",
+        "name": "Authorization",
+        "type": "apiKey"
+      }
+    }
+  },
+
+  "paths": {
+    "/api/auth/register": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Register User ",
+        "description": "Register User",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User register successfully"
+          },
+          "400": {
+            "description": "All fields are required"
+          },
+          "409": {
+            "description": "User already exist"
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Login User ",
+        "description": "Login to get token",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User logged in successfully"
+          },
+          "400": {
+            "description": "Both fields are required"
+          },
+          "404": {
+            "description": "User does not exist"
+          },
+          "401": {
+            "description": "Invalid Credential"
+          }
+        }
+      }
+    },
+    "/api/category": {
+      "post": {
+        "tags": ["Category"],
+        "summary": "Create Category",
+        "description": "Create Category",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Category created successfully"
+          },
+          "400": {
+            "description": "Category name is required"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Category"],
+        "summary": "get Categories",
+        "description": "Get list of categories",
+
+        "responses": {
+          "201": {
+            "description": "Category fetched successfully"
+          }
+        }
+      }
+    },
+
+    "/api/product": {
+      "post": {
+        "tags": ["Product"],
+        "summary": "Add Product",
+        "description": "Add Product",
+        "security": [{ "JWT": {} }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "number"
+                  },
+                  "inStock": {
+                    "type": "number"
+                  },
+                  "category": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Product added successfully"
+          },
+          "400": {
+            "description": "All fields are required"
+          },
+          "401": {
+            "description": "Unauthorized request"
+          }
+        }
+      }
+    },
+    "/api/product/{categoryId}": {
+      "get": {
+        "tags": ["Product"],
+        "summary": "Get product by categoryId",
+        "description": "Get product by categoryId",
+        "security": [{ "JWT": {} }],
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "description": "categoryId",
+            "required": true,
+            "type":"string"
+              
+            
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "Product fetched successfully"
+          },
+          "400": {
+            "description": "Invalid category id"
+          },
+          "404": {
+            "description": "Product does not exist"
+          },
+          "401": {
+            "description": "Unauthorized request"
+          }
+        }
+      }
+    },
+    "/api/product/{productId}": {
+      "get": {
+        "tags": ["Product"],
+        "summary": "Get product by productId",
+        "description": "Get product by productId",
+        "security": [{ "JWT": {} }],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "productId",
+            "type": "string",
+            "required": true
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "Product fetched successfully"
+          },
+          "400": {
+            "description": "Invalid product id"
+          },
+          "404": {
+            "description": "Product does not exist"
+          },
+          "401": {
+            "description": "Unauthorized request"
+          }
+        }
+      }
+    },
+    "/api/cart": {
+      "post": {
+        "tags": ["Cart"],
+        "summary": "Add product to cart",
+        "description": "Add product to cart",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "items": {
+                    "type": "object",
+                    "productId": {
+                      "type": "string"
+                    },
+                    "quantity": {
+                      "type": "number"
+                    },
+                    "required": {
+                      "productId": "quantity"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Product added successfully"
+          },
+          "400": {
+            "description": "items is required"
+          },
+          "401": {
+            "description": "Unauthorized request"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Cart"],
+        "summary": "View cart",
+        "description": "View cart",
+
+        "responses": {
+          "201": {
+            "description": "Cart fetched successfully"
+          },
+          "404": {
+            "description": "Cart does not exist"
+          },
+          "401": {
+            "description": "Unauthorized request"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Cart"],
+        "summary": "Update quantity",
+        "description": "Update quantity",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "productId": {
+                    "type": "string"
+                  },
+                  "action": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+
+        "responses": {
+          "200": {
+            "description": "Quantity updated successfully"
+          },
+          "400": {
+            "description": "Invalid action"
+          },
+          "404": {
+            "description": "Cart not found"
+          },
+          "401": {
+            "description": "Unauthorized request"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Cart"],
+        "summary": "Delete item from the cart",
+        "description": "Delete item from the cart",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "productId": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+
+        "responses": {
+          "200": {
+            "description": "Product removed successfully"
+          },
+          "404": {
+            "description": "Cart not found"
+          },
+          "401": {
+            "description": "Unauthorized request"
+          }
+        }
+      }
+    },
+    "/api/order": {
+      "post": {
+        "tags": ["Order"],
+        "summary": "Place order with product from the cart",
+        "description": "Place order with product from the cart",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Order placed successfully"
+          },
+          "400": {
+            "description": "Address is required"
+          },
+          "404": {
+            "description": "Cart is empty"
+          },
+          "401": {
+            "description": "Unauthorized request"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Order"],
+        "summary": "Get order history of user",
+        "description": "Get order history of user",
+
+        "responses": {
+          "200": {
+            "description": "Order history fetched successfully"
+          },
+          "404": {
+            "description": "Orders does not exist"
+          },
+          "401": {
+            "description": "Unauthorized request"
+          }
+        }
+      }
+    },
+      "/api/order/{orderId}": {
+        "get": {
+          "tags": ["Order"],
+          "summary": "Get order by order id",
+          "description": "Get order by order id",
+          "security": [{ "JWT": {} }],
+          "parameters": [
+            {
+              "name": "orderId",
+              "in": "path",
+              "description": "Get order by order id",
+              "type": "string",
+              "required": true
+            }
+          ],
+
+          "responses": {
+            "200": {
+              "description": "Order fetched successfully"
+            },
+            "404": {
+              "description": "Order does not exist"
+            },
+            "401": {
+              "description": "Unauthorized request"
+            }
+          }
+        }
+      }
+    
+  }
+}
