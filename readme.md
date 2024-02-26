@@ -19,8 +19,13 @@
 4. run `npm start`
 ---
 
+## Enviroment Variable
+PORT=
+MONGO_URI
+ACCESS_TOKEN_SECRET
+ACCESS_TOKEN_EXPIRY
 
 ## :star: Swagger docs
-["Swagger docs"](https://e-commerce-api-ak05.onrender.com/api/docs/)
+[Swagger docs](https://e-commerce-api-ak05.onrender.com/api/docs/)
 
 ---
