@@ -31,7 +31,7 @@ app.use(cookieParser());
 
 
 app.get('/', (req, res)=> {
-    res.send('Hello World');
+    res.send('<h1>E-commerce API</h1><a href="https://e-commerce-api-ak05.onrender.com/api/docs">Documentaion</a>');
 })
 
 
