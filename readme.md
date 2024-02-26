@@ -21,6 +21,6 @@
 
 
 ## :star: Swagger docs
-[](https://e-commerce-api-ak05.onrender.com/api/docs/)
+["Swagger docs"](https://e-commerce-api-ak05.onrender.com/api/docs/)
 
 ---
