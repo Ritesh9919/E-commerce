@@ -20,10 +20,10 @@
 ---
 
 ## Enviroment Variable
-PORT=
-MONGO_URI
-ACCESS_TOKEN_SECRET
-ACCESS_TOKEN_EXPIRY
+1. PORT=
+2. MONGO_URI
+3. ACCESS_TOKEN_SECRET
+4. ACCESS_TOKEN_EXPIRY
 
 ## :star: Swagger docs
 [Swagger docs](https://e-commerce-api-ak05.onrender.com/api/docs/)
