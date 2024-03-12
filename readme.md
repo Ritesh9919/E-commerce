@@ -1,7 +1,9 @@
 # Summery of this project
 
-   This is API for E-commerce API where user can add product,add product to cart and order prodcut.
-   Used node.js, express.js and mongoDB
+   This is API for E-commerce API where user can add product,add product to cart and order product.
+   
+   ## Tech Stack
+   Node.js, Express.js and MongoDB
 
    ---
  
